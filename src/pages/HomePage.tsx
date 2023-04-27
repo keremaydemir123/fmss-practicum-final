@@ -1,3 +1,6 @@
+import Card from '../components/Card';
+import CardContainer from '../components/CardContainer';
+
 import { useStarships } from '../context/StarshipContext';
 
 function HomePage() {
@@ -5,16 +8,11 @@ function HomePage() {
   return (
     <div className="text-base-content">
       <h1>Home Page</h1>
-      <div>
+      <CardContainer>
         {starships.map((starship) => {
-          return (
-            <div key={starship.id}>
-              <h2>{starship.name}</h2>
-              <p>{starship.model}</p>
-            </div>
-          );
+          return <Card starship={starship} />;
         })}
-      </div>
+      </CardContainer>
     </div>
   );
 }

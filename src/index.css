@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Card */
+
+.card {
+  @apply flex flex-col p-4 border bg-base-200 border-base-300 rounded-md w-80 h-96 overflow-hidden shadow-lg hover:shadow-xl transition-all duration-150 ease-in-out;
+}
+
+.card__image {
+  @apply object-contain h-48 w-full;
+}
+
+.card__starship_name {
+  @apply font-normal tracking-wide text-primary text-lg my-2;
+}
+
+.card__body {
+  @apply mb-2 h-24;
+}
+
+.card__body__title {
+  @apply text-base-content mb-1;
+}
+
+.card__body__value {
+  @apply text-base-content/60 font-light text-sm overflow-ellipsis overflow-hidden whitespace-nowrap;
+}
