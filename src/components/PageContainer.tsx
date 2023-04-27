@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 function PageContainer() {
   return (
@@ -8,7 +9,7 @@ function PageContainer() {
       <section className="pt-32 flex-grow">
         <Outlet />
       </section>
-      {/*<Footer />*/}
+      <Footer />
     </main>
   );
 }
