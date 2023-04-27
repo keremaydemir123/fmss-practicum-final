@@ -15,10 +15,10 @@ function Card({ starship }: ICard) {
       <h2 className="card__starship_name">{starship.name}</h2>
       <div className="card__body">
         <h3 className="card__body__title">Model</h3>
-        <p className="card_body_value">{starship.model}</p>
+        <p className="card__body__value">{starship.model}</p>
         <hr className="my-2" />
         <h3 className="card__body__title">Hyperdrive Rating</h3>
-        <p className="card_body_value">{starship.hyperdrive_rating}</p>
+        <p className="card__body__value">{starship.hyperdrive_rating}</p>
       </div>
     </Link>
   );
