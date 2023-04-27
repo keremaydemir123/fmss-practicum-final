@@ -3,13 +3,22 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 
-import HomePage from './pages/HomePage';
 import { StarshipProvider } from './context/StarshipContext';
+import PageContainer from './components/PageContainer';
+
+import HomePage from './pages/HomePage';
+import DetailsPage from './pages/DetailsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
+    element: <PageContainer />,
+    children: [
+      { path: '/', element: <HomePage /> },
+      { path: '/starship/:id', element: <DetailsPage /> },
+      { path: '*', element: <NotFoundPage /> },
+    ],
   },
 ]);
 
