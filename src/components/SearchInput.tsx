@@ -69,12 +69,14 @@ function SearchInput() {
     // if the user clicks on the search results, don't blur
     if (!e.relatedTarget?.classList.contains('search-results__link')) {
       setFocused(false);
-    } else searchInputRef.current?.focus();
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate(`/starship/${filteredStarships[searchIndex].id}`);
+    setFocused(false);
+    searchInputRef.current?.blur();
   };
 
   return (
@@ -100,6 +102,7 @@ function SearchInput() {
                 <Link
                   to={`/starship/${starship.id}`}
                   key={starship.id}
+                  onClick={() => setFocused(false)}
                   style={{
                     height: LINK_HEIGHT,
                     marginBottom: LINK_MARGIN,
