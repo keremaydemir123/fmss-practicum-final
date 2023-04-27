@@ -20,7 +20,7 @@ interface StarshipContextType {
 }
 
 export const StarshipContext = createContext<StarshipContextType>({
-  starships: [],
+  starships: [] as Starship[],
   loading: false,
   error: '',
   getNextStarships: () => null,

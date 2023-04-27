@@ -1,20 +1,41 @@
-import Card from '../components/Card';
+import { Card, CardSkeleton } from '../components/Card';
 import CardContainer from '../components/CardContainer';
-import SearchInput from '../components/SearchInput';
+import ErrorSection from '../components/ErrorSection';
 
 import { useStarships } from '../context/StarshipContext';
+import { Starship } from '../types';
 
 function HomePage() {
-  const { starships } = useStarships();
+  const { starships, loading, error } = useStarships();
+
+  if (error) return <ErrorSection status="500" error={error} />;
+
   return (
-    <section>
-      <CardContainer>
-        {starships.map((starship) => {
-          return <Card starship={starship} />;
-        })}
-      </CardContainer>
-    </section>
+    <CardContainer>
+      {loading ? <Skeletons /> : <Cards starships={starships} />}
+    </CardContainer>
   );
 }
 
 export default HomePage;
+
+const Cards = ({ starships }: { starships: Starship[] }) => {
+  return (
+    <>
+      {starships.map((starship) => {
+        return <Card key={starship.id} starship={starship} />;
+      })}
+    </>
+  );
+};
+
+const Skeletons = () => {
+  // at initial load, show 10 skeletons
+  return (
+    <>
+      {Array.from({ length: 10 }).map((_, index) => {
+        return <CardSkeleton key={index} />;
+      })}
+    </>
+  );
+};

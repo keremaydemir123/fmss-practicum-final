@@ -6,9 +6,9 @@ interface ICardContainer {
 
 function CardContainer({ children }: ICardContainer) {
   return (
-    <div className="w-full flex flex-wrap gap-4 justify-center py-2">
+    <section className="w-full flex flex-wrap gap-4 justify-center py-2">
       {children}
-    </div>
+    </section>
   );
 }
 

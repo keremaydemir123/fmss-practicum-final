@@ -6,7 +6,7 @@ interface ICard {
   starship: Starship;
 }
 
-function Card({ starship }: ICard) {
+export function Card({ starship }: ICard) {
   return (
     <Link to={`/starship/${starship.id}`} className="card">
       <div className="flex-1">
@@ -24,4 +24,18 @@ function Card({ starship }: ICard) {
   );
 }
 
-export default Card;
+export function CardSkeleton() {
+  return (
+    <div className="animate-pulse card">
+      <div className="flex-1 bg-base-content/20 h-48 w-full"></div>
+      <div className="bg-base-content/20 my-2 h-6 w-3/4"></div>
+      <div className="py-2 text-sm gap-2 my-2 h-24">
+        <div className="bg-base-content/20 h-4 w-1/4 mb-2"></div>
+        <div className="bg-base-content/20 h-4 w-3/4"></div>
+        <hr className="my-2" />
+        <div className="bg-base-content/20 h-4 w-2/4 mb-2"></div>
+        <div className="bg-base-content/20 h-4 w-1/4"></div>
+      </div>
+    </div>
+  );
+}
