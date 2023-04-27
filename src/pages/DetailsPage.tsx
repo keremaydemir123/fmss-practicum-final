@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react';
 import { AxiosResponse } from 'axios';
 import { useParams } from 'react-router-dom';
 
-import DetailBox from '../components/TextBox';
 import { Starship } from '../types';
 import { getStarshipById } from '../api';
+
+import DetailBox from '../components/TextBox';
+import ErrorSection from '../components/ErrorSection';
+import Loading from '../components/Loading';
 
 function DetailsPage() {
   const [starship, setStarship] = useState<Starship | null>(null);
@@ -20,23 +23,13 @@ function DetailsPage() {
         setStarship(response.data);
       })
       .catch((error) => {
-        setError(`starship with id ${id} not found`);
+        setError(`starship with id ${id} not found!`);
       })
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return (
-      <section className="flex flex-col items-center justify-center h-full">
-        <h1 className="heading error">404 Error</h1>
-        <p className="heading !text-2xl">{error}</p>
-      </section>
-    );
-  }
+  if (loading) return <Loading />;
+  if (error) return <ErrorSection status="404" error={error} />;
 
   return (
     <section className="h-full w-full flex flex-col gap-4 justify-center">
