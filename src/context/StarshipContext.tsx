@@ -6,7 +6,6 @@ import {
   ReactNode,
   useCallback,
 } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
 
 import { Starship } from '../types';
 import { getAllStarships, getNextStarshipsByUrl } from '../api';
@@ -40,13 +39,14 @@ export const StarshipProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     getAllStarships()
       .then((response) => {
-        const starshipsWithId = addIdToStarships(response.data.results);
-        setStarships(starshipsWithId);
+        const completeStarships = addIdAndImageToStarships(
+          response.data.results
+        );
+        setStarships(completeStarships);
         setNextUrl(response.data.next);
       })
-      .catch((error) => {
-        setError(error.message);
-        toast.error(error.message);
+      .catch(() => {
+        setError("Couldn't fetch starships.");
       })
       .finally(() => setLoading(false));
   }, []);
@@ -62,19 +62,26 @@ export const StarshipProvider = ({ children }: { children: ReactNode }) => {
 
     return getNextStarshipsByUrl(nextUrl)
       .then((response) => {
-        const starshipsWithId = addIdToStarships(response.data.results);
-        setStarships((prev) => [...prev, ...starshipsWithId]);
+        const completeStarships = addIdAndImageToStarships(
+          response.data.results
+        );
+        setStarships((prev) => [...prev, ...completeStarships]);
         setNextUrl(response.data.next);
       })
-      .catch((error) => {
-        setError(error.message);
+      .catch(() => {
+        setError("Couldn't fetch starships.");
       })
       .finally(() => setLoading(false));
   }, [nextUrl]);
 
-  function addIdToStarships(starships: Starship[]) {
+  function addIdAndImageToStarships(starships: Starship[]) {
+    const IMAGE_URL = '/starship.jpg';
+
     return starships.map((starship) => {
-      Object.assign(starship, { id: starship.url.split('/')[5] });
+      Object.assign(starship, {
+        id: starship.url.split('/')[5],
+        image: IMAGE_URL,
+      });
       return starship;
     });
   }
@@ -83,7 +90,6 @@ export const StarshipProvider = ({ children }: { children: ReactNode }) => {
     <StarshipContext.Provider
       value={{ starships, loading, error, getNextStarships, nextUrl }}
     >
-      <Toaster />
       {children}
     </StarshipContext.Provider>
   );

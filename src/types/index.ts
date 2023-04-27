@@ -17,5 +17,6 @@ export interface Starship {
   films: string[];
   created: string;
   edited: string;
-  url: string;
+  url: string; // added
+  image: string; // added
 }

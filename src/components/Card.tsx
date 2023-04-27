@@ -10,7 +10,7 @@ export function Card({ starship }: ICard) {
   return (
     <Link to={`/starship/${starship.id}`} className="card">
       <div className="flex-1">
-        <img src="/starship.jpg" alt="starship" className="card__image" />
+        <img src={starship.image} alt="starship" className="card__image" />
       </div>
       <h2 className="card__starship_name">{starship.name}</h2>
       <div className="card__body">
