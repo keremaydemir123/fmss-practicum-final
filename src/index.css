@@ -9,6 +9,15 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+.heading {
+  @apply font-bold text-4xl sm:text-6xl text-primary italic mb-8;
+  font-family: 'Bruno Ace SC', cursive;
+}
+
+.error {
+  @apply text-error;
+}
+
 /* Card */
 
 .card {
