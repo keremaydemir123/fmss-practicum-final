@@ -11,7 +11,7 @@ function LoadMoreButton(props: React.ComponentPropsWithoutRef<'button'>) {
       className="btn btn-primary w-max mt-6"
       {...props}
     >
-      {nextUrl == null ? 'No more spaceships' : children}
+      {nextUrl == null ? 'No More Starships' : children}
     </button>
   );
 }
