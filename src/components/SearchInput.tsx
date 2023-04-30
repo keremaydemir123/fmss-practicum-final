@@ -14,7 +14,7 @@ function SearchInput() {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
-  const { starships } = useStarships();
+  const { allStarships } = useStarships();
   const arrowUpPressed = useKeyDown('ArrowUp');
   const arrowDownPressed = useKeyDown('ArrowDown');
 
@@ -23,13 +23,13 @@ function SearchInput() {
 
   const filteredStarships: Starship[] = useMemo(
     () =>
-      starships.filter((starship) => {
+      allStarships.filter((starship) => {
         return (
           starship.name.toLowerCase().includes(inputVal.toLowerCase()) ||
           starship.model.toLowerCase().includes(inputVal.toLowerCase())
         );
       }),
-    [inputVal, starships]
+    [inputVal, allStarships]
   );
 
   useEffect(() => {
