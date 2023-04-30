@@ -17,6 +17,11 @@ function DetailsPage() {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
+    if (isNaN(Number(id))) {
+      setError(`starship id ${id} is not a number!`);
+      return;
+    }
+
     setLoading(true);
     getStarshipById(Number(id))
       .then((response: AxiosResponse) => {
