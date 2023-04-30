@@ -27,7 +27,7 @@ function DetailsPage() {
       .then((response: AxiosResponse) => {
         setStarship(response.data);
       })
-      .catch((error) => {
+      .catch(() => {
         setError(`starship with id ${id} not found!`);
       })
       .finally(() => setLoading(false));

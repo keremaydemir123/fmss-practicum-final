@@ -28,6 +28,7 @@ export const StarshipContext = createContext<StarshipContextType>({
   nextUrl: '',
 });
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useStarships = () => useContext(StarshipContext);
 
 export const StarshipProvider = ({ children }: { children: ReactNode }) => {

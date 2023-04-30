@@ -13,7 +13,7 @@ export interface Starship {
   hyperdrive_rating: string;
   MGLT: string;
   starship_class: string;
-  pilots: any[];
+  pilots: unknown[];
   films: string[];
   created: string;
   edited: string;
