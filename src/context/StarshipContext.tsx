@@ -41,26 +41,26 @@ export const StarshipProvider = ({ children }: { children: ReactNode }) => {
   // on mount, get all starships and starships to render
   useEffect(() => {
     setLoading(true);
-    Promise.all([getFirstStarships(), getAllStarships()])
-      .then((res) => {
-        setStarships(addIdAndImageToStarships(res[0].results));
-        setNextUrl(res[0].next);
-        setAllStarships(addIdAndImageToStarships(res[1]));
+    getAllStarships()
+      .then(([initial, next, all]) => {
+        setStarships(initial);
+        setNextUrl(next);
+        setAllStarships(all);
       })
-      .catch(() => setError("Couldn't fetch starships."))
+      .catch(() => setError('Something went wrong!'))
       .finally(() => setLoading(false));
   }, []);
 
-  async function getFirstStarships() {
-    const response = await getInitialStarships();
-    return response.data;
-  }
-
-  async function getAllStarships() {
+  async function getAllStarships(): Promise<[Starship[], string, Starship[]]> {
     const initialStarshipsRes = await getInitialStarships();
-    let prevStarships = JSON.parse(JSON.stringify(initialStarshipsRes));
+    const initialStarships = addIdAndImageToStarships(
+      initialStarshipsRes.data.results
+    );
 
-    const otherStarships: Starship[] = [];
+    const next = initialStarshipsRes.data.next;
+
+    let prevStarships = JSON.parse(JSON.stringify(initialStarshipsRes));
+    let otherStarships: Starship[] = [];
     do {
       const nextStarships = await getNextStarshipsByUrl(
         prevStarships.data.next
@@ -68,7 +68,11 @@ export const StarshipProvider = ({ children }: { children: ReactNode }) => {
       otherStarships.push(...nextStarships.data.results);
       prevStarships = nextStarships;
     } while (prevStarships.data.next);
-    return otherStarships;
+
+    otherStarships = addIdAndImageToStarships(otherStarships);
+
+    const allStarships = [...initialStarships, ...otherStarships];
+    return [initialStarships, next, allStarships];
   }
 
   // this function will be used from LoadMoreButton component only
